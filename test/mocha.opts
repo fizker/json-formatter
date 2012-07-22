@@ -1,4 +1,4 @@
 --recursive
 --ui bdd
---reporter spec
+--reporter mocha-multiline-reporter
 --require test/common
