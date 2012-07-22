@@ -46,13 +46,17 @@ function objectMapper(obj, lvl) {
 	var formattedObject = Object.keys(obj).map(mapper).join('\n')
 	  , ret = util.format('{%s\n', formattedObject)
 
-	return ret + '}'
+	return ret + indent('}', lvl + 1)
 
 	function mapper(key, idx) {
 		var value = obj[key]
-		  , newline = typeof value === 'object' && value !== null ? '\n  ' : ' '
-		  , value = format(value, lvl + 1)
-		  , line = util.format(' "%s":%s%s', key, newline, value)
+		  , newline = '\n' + indent('  ', lvl + 1)
+		  , formattedValue = format(value, lvl + 1)
+		  , line = util.format
+		    ( ' "%s":%s%s'
+		    , key
+		    , typeof value === 'object' && value !== null ? newline : ' '
+		    , formattedValue)
 
 		if(idx) {
 			line = indent(',' + line, lvl + 1)

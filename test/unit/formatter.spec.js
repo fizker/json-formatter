@@ -1,6 +1,58 @@
 describe('unit/formatter.spec.js', function() {
 	var formatter = require('../../src/formatter')
 
+	describe('When nesting objects and arrays deeply', function() {
+		it('should format according to spec', function() {
+			var obj =
+			    { a: []
+			    , b: 'b'
+			    , c:
+			      [ 1
+			      , { "a": 1
+			        , "b": 2
+			        }
+			      , [ [ 1
+			          , 2
+			          ]
+			        , { "a":
+			            [ 1
+			            ]
+			          , "b":
+			            [
+			            ]
+			          }
+			        ]
+			      ]
+			    }
+			  , result = formatter(obj)
+
+			expect(result).to.equal(
+				  '{ "a":\n'
+				+ '  [\n'
+				+ '  ]\n'
+				+ ', "b": "b"\n'
+				+ ', "c":\n'
+				+ '  [ 1\n'
+				+ '  , { "a": 1\n'
+				+ '    , "b": 2\n'
+				+ '    }\n'
+				+ '  , [ [ 1\n'
+				+ '      , 2\n'
+				+ '      ]\n'
+				+ '    , { "a":\n'
+				+ '        [ 1\n'
+				+ '        ]\n'
+				+ '      , "b":\n'
+				+ '        [\n'
+				+ '        ]\n'
+				+ '      }\n'
+				+ '    ]\n'
+				+ '  ]\n'
+				+ '}'
+			)
+		})
+	})
+
 	describe('When root is an object', function() {
 		describe('with a nested array', function() {
 			it('should format it according to spec', function() {
