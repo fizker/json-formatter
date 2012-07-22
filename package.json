@@ -1,20 +1,22 @@
-{
-  "name": "json-formatter",
-  "version": "0.0.0",
-  "description": "A simple json formatter conforming to my style.",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "keywords": [
-    "json",
-    "formatter"
-  ],
-  "devDependencies":
+{ "name": "json-formatter"
+, "version": "0.1.0"
+, "description": "A simple json formatter conforming to my style."
+, "main": "index.js"
+, "scripts":
+  { "test": "mocha"
+  }
+, "keywords":
+  [ "json"
+  , "formatter"
+  ]
+, "dependencies":
+  { "commander": "1.0.0"
+  }
+, "devDependencies":
   { "mocha": "1.3.0"
   , "chai": "1.1.1"
   , "mocha-multiline-reporter": "0.2.0"
-  },
-  "author": "Benjamin Horsleben",
-  "license": "WTFPL"
+  }
+, "author": "Benjamin Horsleben"
+, "license": "WTFPL"
 }
