@@ -28,6 +28,8 @@ function arrayMapper(obj, lvl) {
 	var formattedArray = obj.map(mapper).join('\n')
 	  , ret = util.format('[%s\n', formattedArray)
 
+	return ret + indent(']', lvl + 1)
+
 	function mapper(obj, idx) {
 		var value = format(obj, lvl + 1).trim()
 		 , line = ' ' + value
@@ -38,19 +40,26 @@ function arrayMapper(obj, lvl) {
 
 		return line
 	}
-
-	return ret + indent(']', lvl + 1)
 }
 
 function objectMapper(obj, lvl) {
-	return util.format
-		( '{%s\n}'
-		, Object.keys(obj)
-			.map(function(key) {
-				return util.format(' "%s": "%s"', key, obj[key])
-			})
-			.join('\n,')
-		)
+	var formattedObject = Object.keys(obj).map(mapper).join('\n')
+	  , ret = util.format('{%s\n', formattedObject)
+
+	return ret + '}'
+
+	function mapper(key, idx) {
+		var value = obj[key]
+		  , newline = typeof value === 'object' && value !== null ? '\n  ' : ' '
+		  , value = format(value, lvl + 1)
+		  , line = util.format(' "%s":%s%s', key, newline, value)
+
+		if(idx) {
+			line = indent(',' + line, lvl + 1)
+		}
+
+		return line
+	}
 }
 
 function indent(str, lvl) {

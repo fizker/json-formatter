@@ -2,6 +2,34 @@ describe('unit/formatter.spec.js', function() {
 	var formatter = require('../../src/formatter')
 
 	describe('When root is an object', function() {
+		describe('with a nested array', function() {
+			it('should format it according to spec', function() {
+				var result = formatter.parse('{"a":[],"b":[1,2,3]}')
+				expect(result).to.equal(
+					  '{ "a":\n'
+					+ '  [\n'
+					+ '  ]\n'
+					+ ', "b":\n'
+					+ '  [ 1\n'
+					+ '  , 2\n'
+					+ '  , 3\n'
+					+ '  ]\n'
+					+ '}'
+				)
+			})
+		})
+		describe('with a single level', function() {
+			it('should format it according to spec', function() {
+				var result = formatter.parse('{"a":1,"b":"2", "c":true, "d":null}')
+				expect(result).to.equal(
+					  '{ "a": 1\n'
+					+ ', "b": "2"\n'
+					+ ', "c": true\n'
+					+ ', "d": null\n'
+					+ '}'
+				)
+			})
+		})
 		describe('containing a single key-value pair', function() {
 			it('should put it on two lines', function() {
 				var result = formatter.parse('{"a":"b"}')
