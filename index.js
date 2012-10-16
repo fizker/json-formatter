@@ -13,16 +13,16 @@ program
 	.usage('path/to/input')
 	.parse(process.argv)
 
-input = program.args[0]
-
-if(!input) {
+if(!program.args.length) {
 	program.parse(['bla', 'bla', '--help'])
 	program.exit(1)
 }
 
-output = input
+program.args.forEach(function(input) {
+	output = input
 
-var original = fs.readFileSync(input, 'utf8')
-  , formatted = formatter.parse(original)
+	var original = fs.readFileSync(input, 'utf8')
+	  , formatted = formatter.parse(original)
 
-fs.writeFileSync(output, formatted + '\n')
+	fs.writeFileSync(output, formatted + '\n')
+})
