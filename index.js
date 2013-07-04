@@ -9,7 +9,7 @@ var program = require('commander')
   , output
 
 program
-	.version('0.1.0')
+	.version(require('./package').version)
 	.usage('path/to/input')
 	.parse(process.argv)
 
