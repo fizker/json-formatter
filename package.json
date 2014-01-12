@@ -1,5 +1,5 @@
 { "name": "json-formatter"
-, "version": "0.1.1"
+, "version": "0.2.0"
 , "description": "A simple json formatter conforming to my style."
 , "main": "index.js"
 , "repository":
@@ -14,11 +14,11 @@
   , "formatter"
   ]
 , "dependencies":
-  { "commander": "~1.2.0"
+  { "commander": "~2.1"
   }
 , "devDependencies":
-  { "mocha": "1.12.0"
-  , "chai": "1.7.2"
+  { "mocha": "~1.17"
+  , "chai": "~1.8.1"
   , "mocha-multiline-reporter": "0.2.0"
   }
 , "author": "Benjamin Horsleben"
