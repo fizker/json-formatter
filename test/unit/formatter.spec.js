@@ -1,6 +1,32 @@
 describe('unit/formatter.spec.js', function() {
 	var formatter = require('../../src/formatter')
 
+	describe('When handling escaped values', function() {
+		var result
+
+		describe('in the keys', function() {
+			it('should escape `"` properly')
+			it('should escape newlines properly')
+		})
+
+		describe('in the values', function() {
+			it('should escape `"` properly', function() {
+				result = formatter.parse('{"abc":"de\\"f"}')
+				result.should.equal(
+					  '{ "abc": "de\\"f"\n'
+					+ '}'
+				)
+			})
+			it('should escape newlines properly', function() {
+				result = formatter.parse('{"abc":"de\\nf"}')
+				result.should.equal(
+					  '{ "abc": "de\\nf"\n'
+					+ '}'
+				)
+			})
+		})
+	})
+
 	describe('When nesting objects and arrays deeply', function() {
 		it('should format according to spec', function() {
 			var obj =

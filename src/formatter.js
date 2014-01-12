@@ -10,7 +10,7 @@ function format(obj, lvl) {
 	lvl = lvl || 0
 
 	if(typeof obj === 'string') {
-		return util.format('"%s"', obj)
+		return util.format('"%s"', obj.replace(/"/g, '\\"').replace(/\n/g, '\\n'))
 	} else if(typeof obj === 'number') {
 		return obj.toString()
 	} else if(typeof obj === 'boolean') {
