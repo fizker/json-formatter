@@ -1,4 +1,4 @@
-{ "name": "json-formatter"
+{ "name": "fzk-json-formatter"
 , "version": "0.2.0"
 , "description": "A simple json formatter conforming to my style."
 , "main": "index.js"
