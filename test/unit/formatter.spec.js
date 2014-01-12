@@ -5,8 +5,20 @@ describe('unit/formatter.spec.js', function() {
 		var result
 
 		describe('in the keys', function() {
-			it('should escape `"` properly')
-			it('should escape newlines properly')
+			it('should escape `"` properly', function() {
+				result = formatter.parse('{"ab\\"c":"def"}')
+				result.should.equal(
+					  '{ "ab\\"c": "def"\n'
+					+ '}'
+				)
+			})
+			it('should escape newlines properly', function() {
+				result = formatter.parse('{"ab\\nc":"def"}')
+				result.should.equal(
+					  '{ "ab\\nc": "def"\n'
+					+ '}'
+				)
+			})
 		})
 
 		describe('in the values', function() {

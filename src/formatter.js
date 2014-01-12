@@ -6,11 +6,15 @@ format.parse = function(str) {
 
 var util = require('util')
 
+function escapeString(s) {
+	return s.replace(/"/g, '\\"').replace(/\n/g, '\\n')
+}
+
 function format(obj, lvl) {
 	lvl = lvl || 0
 
 	if(typeof obj === 'string') {
-		return util.format('"%s"', obj.replace(/"/g, '\\"').replace(/\n/g, '\\n'))
+		return util.format('"%s"', escapeString(obj))
 	} else if(typeof obj === 'number') {
 		return obj.toString()
 	} else if(typeof obj === 'boolean') {
@@ -44,19 +48,20 @@ function arrayMapper(obj, lvl) {
 
 function objectMapper(obj, lvl) {
 	var formattedObject = Object.keys(obj).map(mapper).join('\n')
-	  , ret = util.format('{%s\n', formattedObject)
+	var ret = util.format('{%s\n', formattedObject)
 
 	return ret + indent('}', lvl + 1)
 
 	function mapper(key, idx) {
 		var value = obj[key]
-		  , newline = '\n' + indent('  ', lvl + 1)
-		  , formattedValue = format(value, lvl + 1)
-		  , line = util.format
-		    ( ' "%s":%s%s'
-		    , key
-		    , typeof value === 'object' && value !== null ? newline : ' '
-		    , formattedValue)
+		var newline = '\n' + indent('  ', lvl + 1)
+		var formattedValue = format(value, lvl + 1)
+		var line = util.format(
+			  ' "%s":%s%s'
+			, escapeString(key)
+			, typeof value === 'object' && value !== null ? newline : ' '
+			, formattedValue
+		)
 
 		if(idx) {
 			line = indent(',' + line, lvl + 1)
